@@ -1,0 +1,7 @@
+C:\Users\BanCry\source\repos\AppWork\AppWork\bin\Debug\AppWork.exe.config
+C:\Users\BanCry\source\repos\AppWork\AppWork\bin\Debug\AppWork.exe
+C:\Users\BanCry\source\repos\AppWork\AppWork\bin\Debug\AppWork.pdb
+C:\Users\BanCry\source\repos\AppWork\AppWork\obj\Debug\AppWork.csproj.CoreCompileInputs.cache
+C:\Users\BanCry\source\repos\AppWork\AppWork\obj\Debug\AppWork.exe
+C:\Users\BanCry\source\repos\AppWork\AppWork\obj\Debug\AppWork.pdb
+C:\Users\BanCry\source\repos\AppWork\AppWork\obj\Debug\AppWork.csprojResolveAssemblyReference.cache

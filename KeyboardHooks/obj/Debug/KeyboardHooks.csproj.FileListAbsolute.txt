@@ -1,0 +1,10 @@
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\bin\Debug\KeyboardHooks.exe.config
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\bin\Debug\KeyboardHooks.exe
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\bin\Debug\KeyboardHooks.pdb
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.csprojResolveAssemblyReference.cache
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.Form1.resources
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.Properties.Resources.resources
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.csproj.GenerateResource.Cache
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.csproj.CoreCompileInputs.cache
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.exe
+C:\Users\BanCry\source\repos\AppWork\KeyboardHooks\obj\Debug\KeyboardHooks.pdb
