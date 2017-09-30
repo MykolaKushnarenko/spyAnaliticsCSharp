@@ -23,9 +23,8 @@ namespace KeyboardHooks
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
         public static Action<string> CallbackAction { get; set; }
+        public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
         public static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
@@ -35,8 +34,8 @@ namespace KeyboardHooks
                 KeysConverter kc = new KeysConverter();
 
                 string mystring = kc.ConvertToString((Keys)keyCode);
-                string a = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
                 CallbackAction(mystring);
+
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }

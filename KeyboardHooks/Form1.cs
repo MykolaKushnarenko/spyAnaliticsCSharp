@@ -38,8 +38,13 @@ namespace KeyboardHooks
 
         public void Display(string s)
         {
-            textBox2.Text = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
-            textBox1.Text += s + "\r\n";
+            char[] masKey = s.ToCharArray();
+            if (InputLanguage.CurrentInputLanguage.Culture.DisplayName == "Русский (Россия)")
+            {
+                textBox1.Text += dictionary[masKey[0]] + "\r\n";
+            }
+            else
+                textBox1.Text += masKey[0] + "\r\n" ;
         }
 
         private IntPtr SetHook(LowLevelKeyboardProc proc)
@@ -53,7 +58,16 @@ namespace KeyboardHooks
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CoreFunctionImport.UnhookWindowsHookEx(_hookID);
+            Color cl = button1.BackColor;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.BackColor = System.Drawing.Color.Red;
+            this.TransparencyKey = System.Drawing.Color.Red;
+            button1.BackColor = cl;
         }
     }
 }

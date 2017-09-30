@@ -87,6 +87,7 @@ namespace AppWork
                 int keyCode = Marshal.ReadInt32(lParam);
                 KeysConverter kc = new KeysConverter();
                 string a = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
+                Console.WriteLine(a);
                 string mystring = kc.ConvertToString((Keys)keyCode);
                 Litera(mystring);
             }
