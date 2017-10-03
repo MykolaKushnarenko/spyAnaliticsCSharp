@@ -9,31 +9,35 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static KeyboardHooks.ProgInfo;
 
 namespace KeyboardHooks
 {
     public partial class Form1 : Form
     {
 
-        public string language;
-        public Dictionary<char, char> dictionary = new Dictionary<char, char>();
-        public string NameOfApp;
+        private string language;
+        private Dictionary<char, char> dictionary = new Dictionary<char, char>();
+        private string NameOfApp;
         private DateTime localDate;
+        private ProgInfo info;
         public Form1()
         {
             InitializeComponent();
+            info = new ProgInfo();
             string En = "~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./↑←↓ ";
             string Ru = "Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,ё1234567890-=йцукенгшщзхъ\\фывапролджэячсмитьбю.↑←↓ ";
 
             char[] enen = En.ToCharArray();
             char[] ruru = Ru.ToCharArray();
+
             for (int i = 0; i < enen.Length; i++)
             {
                 dictionary.Add(enen[i], ruru[i]);
             }
+
             language = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
-
-
+            NameOfApp = info.GetNameOfApp();
         }
 
 
@@ -46,9 +50,11 @@ namespace KeyboardHooks
         public void Display(string s)
         {
             localDate = DateTime.Now;
-            textBox1.SelectionStart = textBox1.Text.Length;
-            textBox1.ScrollToCaret();
-
+            if (NameOfApp != info.GetNameOfApp())
+           {
+                NameOfApp = info.GetNameOfApp();
+                textBox1.Text += NameOfApp + "\r\n";
+            }
             char[] masKey = s.ToCharArray();
             if (language != InputLanguage.CurrentInputLanguage.Culture.DisplayName)
             {
@@ -68,11 +74,9 @@ namespace KeyboardHooks
                 textBox1.Text += localDate.ToString() + ": " + s + "\r\n";
             }
         }
-
-
-
         private void button2_Click(object sender, EventArgs e)
         {
+            HookHandler.RemoveHook();
         }
     }
 }

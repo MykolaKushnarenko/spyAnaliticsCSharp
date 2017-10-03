@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static KeyboardHooks.Fimport;
-
 namespace KeyboardHooks
 {
     public static class HookHandler
@@ -16,7 +15,8 @@ namespace KeyboardHooks
         public static Action<string> _callBackFunct;
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
-        public static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        private static readonly LowLevelKeyboardProc CallBack = HookCallback;
+        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
@@ -29,16 +29,19 @@ namespace KeyboardHooks
             return CallNextHookEx(hookID, nCode, wParam, lParam);
         }
 
-        public static IntPtr SetHook()
+        public static void SetHook()
         {
 
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule)
             {
-                return Fimport.SetWindowsHookEx(WH_KEYBOARD_LL, CallBack, GetModuleHandle(curModule.ModuleName), 0);
+                hookID  = SetWindowsHookEx(WH_KEYBOARD_LL, CallBack, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
 
-        public static readonly LowLevelKeyboardProc CallBack = HookCallback;
+        public static void RemoveHook()
+        {
+            UnhookWindowsHookEx(hookID);
+        }
     }
 }
