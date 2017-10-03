@@ -19,6 +19,8 @@ namespace KeyboardHooks
         public string language;
         public Dictionary<char, char> dictionary = new Dictionary<char, char>();
         public string NameOfApp;
+
+        private BeginHooks hook;
         private DateTime localDate;
         public Form1()
         {
@@ -33,16 +35,16 @@ namespace KeyboardHooks
                 dictionary.Add(enen[i], ruru[i]);
             }
             language = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
-            NameOfApp = CoreFunctionImport.GetNameOfApp();
-            textBox1.ScrollToCaret();
+            hook = new BeginHooks();
+
 
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CoreFunctionImport._hookID = SetHook(CoreFunctionImport.HookCallback);
-            CoreFunctionImport.CallbackAction = Display;
+            hook.Run();
+            BeginHooks.CallbackAction = Display;
         }
 
         public void Display(string s)
@@ -50,11 +52,7 @@ namespace KeyboardHooks
             localDate = DateTime.Now;
             textBox1.SelectionStart = textBox1.Text.Length;
             textBox1.ScrollToCaret();
-            if (NameOfApp != CoreFunctionImport.GetNameOfApp())
-            {
-                NameOfApp = GetNameOfApp();
-                textBox1.Text += NameOfApp + "\r\n";
-            }
+
             char[] masKey = s.ToCharArray();
             if (language != InputLanguage.CurrentInputLanguage.Culture.DisplayName)
             {
@@ -75,14 +73,7 @@ namespace KeyboardHooks
             }
         }
 
-        private IntPtr SetHook(LowLevelKeyboardProc proc)
-        {
-            using (Process curProcess = Process.GetCurrentProcess())
-            using (ProcessModule curModule = curProcess.MainModule)
-            {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
-            }
-        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
