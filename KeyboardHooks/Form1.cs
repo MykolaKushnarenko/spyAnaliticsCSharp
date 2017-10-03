@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static KeyboardHooks.CoreFunctionImport;
 
 namespace KeyboardHooks
 {
@@ -19,8 +18,6 @@ namespace KeyboardHooks
         public string language;
         public Dictionary<char, char> dictionary = new Dictionary<char, char>();
         public string NameOfApp;
-
-        private BeginHooks hook;
         private DateTime localDate;
         public Form1()
         {
@@ -35,7 +32,6 @@ namespace KeyboardHooks
                 dictionary.Add(enen[i], ruru[i]);
             }
             language = InputLanguage.CurrentInputLanguage.Culture.DisplayName;
-            hook = new BeginHooks();
 
 
         }
@@ -43,8 +39,8 @@ namespace KeyboardHooks
 
         private void button1_Click(object sender, EventArgs e)
         {
-            hook.Run();
-            BeginHooks.CallbackAction = Display;
+            HookHandler.SetHook();
+            HookHandler._callBackFunct = Display;
         }
 
         public void Display(string s)
@@ -77,7 +73,6 @@ namespace KeyboardHooks
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CoreFunctionImport.UnhookWindowsHookEx(_hookID);
         }
     }
 }

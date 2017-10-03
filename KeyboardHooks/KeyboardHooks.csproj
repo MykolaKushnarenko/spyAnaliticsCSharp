@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BeginHooks.cs" />
-    <Compile Include="CoreFunctionImport.cs" />
+    <Compile Include="HookHandler.cs" />
+    <Compile Include="Fimport.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
