@@ -12,6 +12,7 @@ namespace KeyboardHooks
     public static class HookHandler
     {
         private static string shift_comd = "";
+        private static string key_oem = "";
         private static IntPtr hookID = IntPtr.Zero;
         public static Action<string> _callBackFunct;
         private const int WH_KEYBOARD_LL = 13;
@@ -27,7 +28,47 @@ namespace KeyboardHooks
                 string mystring = kc.ConvertToString((Keys)keyCode);
                 if (wParam == (IntPtr)WM_KEYDOWN) 
                 {
-                    if ((Keys.Oemcomma != (Keys) keyCode) && Keys.OemPeriod != (Keys) keyCode)
+                    if (Keys.Oemcomma == (Keys) keyCode)
+                    {
+                        key_oem = ",";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.OemOpenBrackets == (Keys)keyCode)
+                    {
+                        key_oem = "[";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.Oem6 == (Keys)keyCode)
+                    {
+                        key_oem = "]";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.Oem5 == (Keys)keyCode)
+                    {
+                        key_oem = "\\";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.Oem1 == (Keys)keyCode)
+                    {
+                        key_oem = ";";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.Oem7 == (Keys)keyCode)
+                    {
+                        key_oem = "'";
+                        _callBackFunct(key_oem);
+                    }
+                    else if(Keys.OemQuestion == (Keys)keyCode)
+                    {
+                        key_oem = "/";
+                        _callBackFunct(key_oem);
+                    }
+                    else if (Keys.OemPeriod == (Keys) keyCode)
+                    {
+                        key_oem = ".";
+                        _callBackFunct(key_oem);
+                    }
+                    else
                     {
                         _callBackFunct(mystring);
                     }
@@ -50,6 +91,7 @@ namespace KeyboardHooks
                         shift_comd = "(Отпустил)LShift";
                         _callBackFunct(shift_comd);
                     }
+
                 }
 
 
