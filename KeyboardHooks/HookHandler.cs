@@ -28,49 +28,43 @@ namespace KeyboardHooks
                 string mystring = kc.ConvertToString((Keys)keyCode);
                 if (wParam == (IntPtr)WM_KEYDOWN) 
                 {
-                    if (Keys.Oemcomma == (Keys) keyCode)
+                    switch ((Keys)keyCode)
                     {
-                        key_oem = ",";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.OemOpenBrackets == (Keys)keyCode)
-                    {
-                        key_oem = "[";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.Oem6 == (Keys)keyCode)
-                    {
-                        key_oem = "]";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.Oem5 == (Keys)keyCode)
-                    {
-                        key_oem = "\\";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.Oem1 == (Keys)keyCode)
-                    {
-                        key_oem = ";";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.Oem7 == (Keys)keyCode)
-                    {
-                        key_oem = "'";
-                        _callBackFunct(key_oem);
-                    }
-                    else if(Keys.OemQuestion == (Keys)keyCode)
-                    {
-                        key_oem = "/";
-                        _callBackFunct(key_oem);
-                    }
-                    else if (Keys.OemPeriod == (Keys) keyCode)
-                    {
-                        key_oem = ".";
-                        _callBackFunct(key_oem);
-                    }
-                    else
-                    {
-                        _callBackFunct(mystring);
+                        case Keys.Oemcomma:
+                            key_oem = ",";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.OemOpenBrackets:
+                            key_oem = "[";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Oem6:
+                            key_oem = "]";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Oem5:
+                            key_oem = "\\";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Oem1:
+                            key_oem = ";";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Oem7:
+                            key_oem = "'";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.OemQuestion:
+                            key_oem = "'";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.OemPeriod:
+                            key_oem = ".";
+                            _callBackFunct(key_oem);
+                            break;
+                        default:
+                            _callBackFunct(mystring);
+                            break;
                     }
                 }
                 if (wParam == (IntPtr) WM_KEYUP)
