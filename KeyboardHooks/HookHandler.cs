@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static KeyboardHooks.Fimport;
 namespace KeyboardHooks
@@ -30,6 +26,26 @@ namespace KeyboardHooks
                 {
                     switch ((Keys)keyCode)
                     {
+                        case Keys.OemMinus:
+                            key_oem = "-";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Multiply:
+                            key_oem = "*";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Capital:
+                            key_oem = "caps lock";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Divide:
+                            key_oem = "/";
+                            _callBackFunct(key_oem);
+                            break;
+                        case Keys.Oemplus:
+                            key_oem = "=";
+                            _callBackFunct(key_oem);
+                            break;
                         case Keys.Oemcomma:
                             key_oem = ",";
                             _callBackFunct(key_oem);
